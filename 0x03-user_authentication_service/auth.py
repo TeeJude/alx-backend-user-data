@@ -58,7 +58,10 @@ class Auth:
         return False
 
     def create_session(self, email: str) -> str:
-        """Returns a new session ID as a string
+        """Takes an email string argument and returns a new
+        session ID as a string
+        It finds user corresponding to email, generate new UUID
+        store in database as users session_id, return session ID
         """
         session_id = _generate_uuid()
         try:
@@ -69,8 +72,8 @@ class Auth:
             return None
 
     def get_user_from_session_id(self, session_id: str) -> str:
-        """Takes single session_id string argument and
-        return corresponding User or None
+        """Takes a single session_id string argument and
+        returns corresponding User or None
         """
         try:
             user = self._db.find_user_by(session_id=session_id)
