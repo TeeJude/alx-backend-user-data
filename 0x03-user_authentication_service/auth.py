@@ -79,7 +79,8 @@ class Auth:
             return None
 
     def destroy_session(self, user_id: int) -> None:
-        """Takes a single user_id integer argument and returns None
+        """Takes a single user_id integer argument and
+        returns None
         """
         try:
             user = self._db.find_user_by(id=user_id)
@@ -88,9 +89,11 @@ class Auth:
             return None
 
     def get_reset_password_token(self, email: str) -> str:
-        """Takes email string argument, returns string, generate
-        uuid and update users reset_token database field, return 
-        the token if exists
+        """Takes an email string argument and returns string
+        Find user corresponding to the email. Raise ValueError if it does
+        not exists. If it does, generate uuid and update users reset_token
+        database field.
+        Return the token
         """
         updated_token = _generate_uuid()
         try:
@@ -101,10 +104,12 @@ class Auth:
             raise ValueError
 
     def update_password(self, reset_token: str, password: str) -> str:
-        """Takes reset_token string argument and a password string
-        returns None, raise ValueError if it doesnt exist, if exists, hash 
-        password and update user hashed_password field with new hashed 
-        password and reset_token field to None
+        """Takes reset_token string argument and a password string and
+        returns None
+        Use the reset_token to find corresponding user, raise ValueError
+        if it doesnt exist, otherwise hash password and update users
+        hashed_password field with new hashed password and reset_token
+        field to None
         """
         if reset_token is None or password is None:
             return None
